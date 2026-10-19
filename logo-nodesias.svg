@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 620">
+  <rect x="90" y="130" width="380" height="380" fill="none" stroke="#1F4E79" stroke-width="14"/>
+  <line x1="90" y1="96" x2="470" y2="96" stroke="#E8871E" stroke-width="7"/>
+  <polygon points="90,96 110,86 110,106" fill="#E8871E"/>
+  <polygon points="470,96 450,86 450,106" fill="#E8871E"/>
+  <line x1="504" y1="130" x2="504" y2="510" stroke="#E8871E" stroke-width="7"/>
+  <polygon points="504,130 494,150 514,150" fill="#E8871E"/>
+  <polygon points="504,510 494,490 514,490" fill="#E8871E"/>
+  <text x="280" y="432" font-family="Arial, Helvetica, sans-serif" font-size="250" font-weight="bold" fill="#1F4E79" text-anchor="middle">N</text>
+  <rect x="580" y="196" width="620" height="34" fill="#E8871E"/>
+  <g stroke="#FFFFFF" stroke-width="4">
+    <line x1="598" y1="230" x2="598" y2="210"/><line x1="636" y1="230" x2="636" y2="218"/><line x1="674" y1="230" x2="674" y2="210"/><line x1="712" y1="230" x2="712" y2="218"/><line x1="750" y1="230" x2="750" y2="210"/><line x1="788" y1="230" x2="788" y2="218"/><line x1="826" y1="230" x2="826" y2="210"/><line x1="864" y1="230" x2="864" y2="218"/><line x1="902" y1="230" x2="902" y2="210"/><line x1="940" y1="230" x2="940" y2="218"/><line x1="978" y1="230" x2="978" y2="210"/><line x1="1016" y1="230" x2="1016" y2="218"/><line x1="1054" y1="230" x2="1054" y2="210"/><line x1="1092" y1="230" x2="1092" y2="218"/><line x1="1130" y1="230" x2="1130" y2="210"/><line x1="1168" y1="230" x2="1168" y2="218"/>
+  </g>
+  <text x="580" y="356" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="bold" fill="#1F4E79">NODESIAS</text>
+  <text x="584" y="418" font-family="Arial, Helvetica, sans-serif" font-size="40" letter-spacing="16" fill="#606C78">CONSULTING</text>
+</svg>
