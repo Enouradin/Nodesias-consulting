@@ -4,60 +4,107 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nodesias Consulting — Estimation, métrés et études techniques | Ottawa-Gatineau</title>
-<meta name="description" content="Nodesias Consulting — bureau d'études techniques à Ottawa : estimation et métrés pour entrepreneurs résidentiels, SIG et études techniques, appels d'offres et projets internationaux.">
+<meta name="description" content="Nodesias Consulting — bureau d'études techniques à Ottawa : estimation et métrés pour entrepreneurs résidentiels d'Ottawa-Gatineau, SIG et études techniques, projets internationaux en Afrique de l'Est. Devis gratuit, réponse sous 1 jour ouvrable.">
+<meta property="og:title" content="Nodesias Consulting — Estimation, métrés et études techniques">
+<meta property="og:description" content="Déposez plus de soumissions, avec des chiffres défendables. Ottawa-Gatineau · SIG · International.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nodesiasconsulting.ca/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231F4E79'/%3E%3Ctext x='32' y='44' font-family='Arial' font-size='34' font-weight='bold' fill='white' text-anchor='middle'%3EN%3C/text%3E%3Crect x='14' y='48' width='36' height='4' rx='2' fill='%23C98A2D'/%3E%3C/svg%3E">
 <style>
-  :root{--navy:#1F4E79;--navy-dark:#163A5C;--accent:#C98A2D;--light:#F2F5F8;--ink:#20262B;--grey:#5A6672}
+  :root{--navy:#1F4E79;--navy-dark:#132E49;--accent:#C98A2D;--accent-dark:#A97622;--light:#F2F5F8;--ink:#20262B;--grey:#5A6672;--line:#E3E9EF}
   *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
   body{font-family:'Segoe UI',Calibri,Arial,sans-serif;color:var(--ink);line-height:1.55;background:#fff}
   a{color:var(--navy);text-decoration:none}
-  .wrap{max-width:1060px;margin:0 auto;padding:0 20px}
-  header{background:#fff;border-bottom:1px solid #E3E9EF;position:sticky;top:0;z-index:10}
-  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-  .logo{font-weight:800;font-size:1.25rem;color:var(--navy);letter-spacing:.4px}
-  .logo span{color:var(--accent)}
-  .nav .links a{margin-left:22px;font-weight:600;font-size:.95rem}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;box-shadow:0 1px 6px rgba(19,46,73,.05)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand .mark{flex:none}
+  .brand .name{font-weight:800;font-size:1.18rem;color:var(--navy);letter-spacing:.4px;line-height:1.1}
+  .brand .name span{color:var(--accent)}
+  .brand .tag{font-size:.72rem;color:var(--grey);letter-spacing:1.2px;text-transform:uppercase}
+  .nav .links a{margin-left:20px;font-weight:600;font-size:.94rem}
+  .nav .links a:hover{color:var(--accent-dark)}
   .lang button{border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:20px;padding:4px 12px;font-weight:700;cursor:pointer;font-size:.85rem}
   .lang button.on{background:var(--navy);color:#fff}
-  .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 100%);color:#fff;padding:64px 0 56px}
-  .hero h1{font-size:2.15rem;line-height:1.2;max-width:760px}
-  .hero p{margin-top:16px;font-size:1.08rem;max-width:720px;color:#D7E3EE}
-  .cta{display:inline-block;margin-top:26px;background:var(--accent);color:#fff;font-weight:700;padding:13px 26px;border-radius:6px}
-  .cta:hover{background:#B57B24}
-  .hero .sub{margin-top:14px;font-size:.92rem;color:#A9C0D4}
-  section{padding:52px 0}
-  h2{color:var(--navy);font-size:1.55rem;margin-bottom:8px}
-  .lead{color:var(--grey);max-width:760px;margin-bottom:28px}
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px}
-  .card{background:var(--light);border-radius:10px;padding:26px;border-top:4px solid var(--navy)}
-  .card h3{color:var(--navy);margin-bottom:10px;font-size:1.12rem}
-  .card ul{margin-left:18px;color:#39434C;font-size:.97rem}
+  .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 88%);color:#fff;padding:68px 0 0;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.045) 0 1px,transparent 1px 44px),repeating-linear-gradient(90deg,rgba(255,255,255,.045) 0 1px,transparent 1px 44px)}
+  .hero .wrap{position:relative}
+  .hero .kicker{color:#F0B95A;font-weight:700;letter-spacing:1.6px;font-size:.8rem;text-transform:uppercase}
+  .hero h1{font-size:2.3rem;line-height:1.18;max-width:780px;margin-top:12px}
+  .hero p{margin-top:16px;font-size:1.08rem;max-width:730px;color:#D7E3EE}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+  .cta{display:inline-block;background:var(--accent);color:#fff;font-weight:700;padding:13px 26px;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .cta:hover{background:var(--accent-dark)}
+  .cta.ghost{background:transparent;border:2px solid #9DB8CF;color:#fff;box-shadow:none}
+  .cta.ghost:hover{border-color:#fff}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(255,255,255,.14);margin-top:44px;border-radius:10px 10px 0 0;overflow:hidden}
+  .stat{background:rgba(10,30,50,.55);padding:18px 20px}
+  .stat b{display:block;font-size:1.45rem;color:#fff}
+  .stat span{font-size:.86rem;color:#B9CFE2}
+  .trustbar{background:#0E2438;color:#C9D9E8;font-size:.9rem;padding:12px 0;text-align:center}
+  section{padding:54px 0}
+  h2{color:var(--navy);font-size:1.6rem;margin-bottom:8px}
+  h2::after{content:"";display:block;width:56px;height:3px;background:var(--accent);border-radius:2px;margin-top:8px}
+  .lead{color:var(--grey);max-width:780px;margin-bottom:28px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(295px,1fr));gap:20px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:27px;box-shadow:0 2px 10px rgba(19,46,73,.05)}
+  .card .icon{width:46px;height:46px;border-radius:10px;background:var(--light);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .card h3{color:var(--navy);margin-bottom:10px;font-size:1.14rem}
+  .card ul{margin-left:18px;color:#39434C;font-size:.96rem}
   .card li{margin-bottom:5px}
-  .card .tag{display:inline-block;background:var(--navy);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.6px;border-radius:4px;padding:3px 8px;margin-bottom:12px}
+  .card .tag{display:inline-block;background:var(--navy);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.6px;border-radius:4px;padding:3px 8px;margin-bottom:12px}
+  .prices{background:var(--light)}
+  .price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px}
+  .price{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px;text-align:center}
+  .price b{display:block;color:var(--navy);font-size:1.05rem;margin-bottom:6px}
+  .price .amt{font-size:1.5rem;font-weight:800;color:var(--accent-dark)}
+  .price span{display:block;color:var(--grey);font-size:.86rem;margin-top:4px}
   .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-  .step{background:#fff;border:1px solid #E3E9EF;border-radius:10px;padding:22px}
+  .step{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px}
   .step b{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;margin-bottom:12px}
+  .faq details{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin-bottom:12px}
+  .faq summary{font-weight:700;color:var(--navy);cursor:pointer}
+  .faq p{margin-top:8px;color:#39434C}
   .about{background:var(--light)}
-  .about p{max-width:820px;margin-bottom:12px}
+  .about p{max-width:840px;margin-bottom:12px}
   .contact{background:var(--navy);color:#fff}
   .contact h2{color:#fff}
+  .contact .cols{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:10px}
+  @media(max-width:760px){.contact .cols{grid-template-columns:1fr}.hero h1{font-size:1.65rem}.nav .links{display:none}}
   .contact a{color:#FFD98A;font-weight:700}
-  .contact .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:14px}
-  footer{padding:22px 0;font-size:.85rem;color:var(--grey);border-top:1px solid #E3E9EF}
+  .cinfo p{margin-bottom:14px;color:#D7E3EE}
+  .cinfo strong{color:#fff}
+  form label{display:block;font-size:.88rem;font-weight:600;margin:12px 0 5px}
+  form input,form select,form textarea{width:100%;padding:11px 12px;border-radius:6px;border:1px solid #9DB8CF;font:inherit;color:var(--ink);background:#fff}
+  form textarea{min-height:96px;resize:vertical}
+  form button{margin-top:18px;background:var(--accent);color:#fff;border:0;font-weight:700;padding:13px 28px;border-radius:6px;cursor:pointer;font-size:1rem}
+  form button:hover{background:var(--accent-dark)}
+  .fineprint{font-size:.82rem;color:#A9C0D4;margin-top:12px}
+  footer{padding:24px 0;font-size:.85rem;color:var(--grey);border-top:1px solid var(--line)}
   [data-en]{display:none}
   body.en [data-fr]{display:none}
   body.en [data-en]{display:revert}
-  @media(max-width:640px){.hero h1{font-size:1.6rem}.nav .links{display:none}}
+  body.en summary[data-en],body.en b[data-en]{display:revert}
 </style>
 </head>
 <body>
 
 <header>
   <div class="wrap nav">
-    <div class="logo">NODESIAS <span>CONSULTING</span></div>
+    <div class="brand">
+      <svg class="mark" width="42" height="42" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#1F4E79"/><text x="32" y="44" font-family="Arial" font-size="34" font-weight="bold" fill="white" text-anchor="middle">N</text><rect x="14" y="48" width="36" height="4" rx="2" fill="#C98A2D"/></svg>
+      <div>
+        <div class="name">NODESIAS <span>CONSULTING</span></div>
+        <div class="tag" data-fr>Bureau d'études techniques</div><div class="tag" data-en>Technical studies firm</div>
+      </div>
+    </div>
     <div class="links">
       <a href="#services" data-fr>Services</a><a href="#services" data-en>Services</a>
+      <a href="#tarifs" data-fr>Tarifs</a><a href="#tarifs" data-en>Pricing</a>
       <a href="#methode" data-fr>Méthode</a><a href="#methode" data-en>Method</a>
-      <a href="#apropos" data-fr>À propos</a><a href="#apropos" data-en>About</a>
+      <a href="#faq" data-fr>FAQ</a><a href="#faq" data-en>FAQ</a>
       <a href="#contact" data-fr>Contact</a><a href="#contact" data-en>Contact</a>
     </div>
     <div class="lang"><button id="btnFr" class="on" onclick="setLang('fr')">FR</button> <button id="btnEn" onclick="setLang('en')">EN</button></div>
@@ -66,62 +113,79 @@
 
 <div class="hero">
   <div class="wrap">
-    <h1 data-fr>Estimation, métrés et études techniques — livrés à temps pour vos soumissions</h1>
-    <h1 data-en>Estimating, quantity takeoffs and technical studies — delivered in time for your bids</h1>
-    <p data-fr>Bureau d'études techniques basé à Ottawa, Nodesias Consulting aide les entrepreneurs résidentiels d'Ottawa-Gatineau à déposer plus de soumissions, et fournit des services de SIG et d'études techniques au Canada et en Afrique de l'Est.</p>
-    <p data-en>Nodesias Consulting is an Ottawa-based technical studies firm. We help Ottawa–Gatineau residential contractors submit more bids, and we provide GIS and technical study services across Canada and East Africa.</p>
-    <a class="cta" href="#contact" data-fr>Demander un devis gratuit</a>
-    <a class="cta" href="#contact" data-en>Request a free quote</a>
-    <p class="sub" data-fr>Réponse sous 1 jour ouvrable · Service bilingue français / anglais</p>
-    <p class="sub" data-en>Reply within 1 business day · Bilingual service in English and French</p>
+    <div class="kicker" data-fr>Ottawa · Gatineau · Canada · Afrique de l'Est</div>
+    <div class="kicker" data-en>Ottawa · Gatineau · Canada · East Africa</div>
+    <h1 data-fr>Déposez plus de soumissions — avec des chiffres que vous pouvez défendre</h1>
+    <h1 data-en>Submit more bids — with numbers you can stand behind</h1>
+    <p data-fr>Nodesias Consulting est un bureau d'études techniques d'Ottawa : métrés et estimations détaillées pour entrepreneurs résidentiels, SIG et études techniques en sous-traitance, et appui aux projets internationaux. Vous recevez un prix ferme et un délai par écrit, avant le début de chaque mandat.</p>
+    <p data-en>Nodesias Consulting is an Ottawa technical studies firm: detailed takeoffs and estimates for residential contractors, GIS and technical studies as a subcontractor, and support for international projects. You get a firm price and a deadline in writing before every assignment starts.</p>
+    <div class="cta-row">
+      <a class="cta" href="#contact" data-fr>Demander un devis gratuit</a>
+      <a class="cta" href="#contact" data-en>Request a free quote</a>
+      <a class="cta ghost" href="#services" data-fr>Voir les services</a>
+      <a class="cta ghost" href="#services" data-en>See our services</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>13 ans</b><span data-fr>d'expérience en projets d'infrastructures et d'eau</span><span data-en>of experience in infrastructure and water projects</span></div>
+      <div class="stat"><b>1 jour</b><span data-fr>ouvrable — délai de réponse à votre demande</span><span data-en>business day — response time to your request</span></div>
+      <div class="stat"><b>≈ 5 jours</b><span data-fr>ouvrables — délai repère d'un métré complet</span><span data-en>business days — benchmark turnaround for a full takeoff</span></div>
+      <div class="stat"><b>FR / EN</b><span data-fr>service bilingue, plans PDF et DWG acceptés</span><span data-en>bilingual service, PDF and DWG drawings accepted</span></div>
+    </div>
   </div>
+</div>
+<div class="trustbar">
+  <span data-fr>Entreprise enregistrée en Ontario — NEO 1001782708 · Région desservie : Ottawa, Gatineau, Kanata, Barrhaven, Orléans, Nepean et environs</span>
+  <span data-en>Registered in Ontario — Business Number 1001782708 · Service area: Ottawa, Gatineau, Kanata, Barrhaven, Orléans, Nepean and area</span>
 </div>
 
 <section id="services">
   <div class="wrap">
     <h2 data-fr>Nos services</h2><h2 data-en>Our services</h2>
-    <p class="lead" data-fr>Trois pôles, une même exigence : des chiffres et des documents sur lesquels vous pouvez décider.</p>
-    <p class="lead" data-en>Three service lines, one standard: numbers and documents you can make decisions on.</p>
+    <p class="lead" data-fr>Trois pôles, une même exigence : des chiffres et des documents sur lesquels vous pouvez décider — et soumissionner.</p>
+    <p class="lead" data-en>Three service lines, one standard: numbers and documents you can make decisions on — and bid with.</p>
     <div class="cards">
       <div class="card">
+        <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1F4E79" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01"/></svg></div>
         <span class="tag" data-fr>PÔLE 1 · OTTAWA-GATINEAU</span><span class="tag" data-en>LINE 1 · OTTAWA–GATINEAU</span>
         <h3 data-fr>Estimation et métrés</h3><h3 data-en>Estimating &amp; quantity takeoffs</h3>
         <ul>
-          <li data-fr>Relevés de quantités à partir de vos plans (excavation, fondations, structure)</li>
-          <li data-en>Quantity takeoffs from your drawings (excavation, foundations, framing)</li>
-          <li data-fr>Estimations détaillées poste par poste, prix documentés</li>
-          <li data-en>Detailed line-by-line estimates with documented unit prices</li>
-          <li data-fr>Revue de soumission avant dépôt</li>
-          <li data-en>Pre-submission bid reviews</li>
-          <li data-fr>Livraison repère : 5 jours ouvrables, en chiffrier Excel clair</li>
-          <li data-en>Benchmark turnaround: 5 business days, in a clean Excel workbook</li>
+          <li data-fr>Relevés de quantités poste par poste (excavation, fondations, structure de bois, finition)</li>
+          <li data-en>Line-by-line quantity takeoffs (excavation, foundations, wood framing, finishes)</li>
+          <li data-fr>Estimations détaillées avec prix unitaires documentés (source et date)</li>
+          <li data-en>Detailed estimates with documented unit prices (source and date)</li>
+          <li data-fr>Revue indépendante de votre soumission avant dépôt</li>
+          <li data-en>Independent review of your bid before submission</li>
+          <li data-fr>Livrable : chiffrier Excel clair + sommaire d'une page (hypothèses, exclusions, points à valider)</li>
+          <li data-en>Deliverable: a clear Excel workbook + a one-page summary (assumptions, exclusions, items to confirm)</li>
         </ul>
       </div>
       <div class="card">
+        <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1F4E79" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.7 2.6 4 5.6 4 9s-1.3 6.4-4 9c-2.7-2.6-4-5.6-4-9s1.3-6.4 4-9z"/></svg></div>
         <span class="tag" data-fr>PÔLE 2 · CANADA</span><span class="tag" data-en>LINE 2 · CANADA</span>
         <h3 data-fr>SIG et études techniques</h3><h3 data-en>GIS &amp; technical studies</h3>
         <ul>
           <li data-fr>Cartographie et analyses spatiales (QGIS, ArcGIS)</li>
           <li data-en>Mapping and spatial analysis (QGIS, ArcGIS)</li>
-          <li data-fr>Études en eau, hydrologie et eaux pluviales</li>
+          <li data-fr>Études en eau, hydrologie et gestion des eaux pluviales</li>
           <li data-en>Water, hydrology and stormwater studies</li>
           <li data-fr>Dessin technique / DAO en sous-traitance</li>
           <li data-en>Technical drafting / CAD support as a subcontractor</li>
-          <li data-fr>Soutien aux dossiers d'appels d'offres</li>
-          <li data-en>Bid and proposal support</li>
+          <li data-fr>Soutien à la préparation de dossiers d'appels d'offres</li>
+          <li data-en>Bid and proposal preparation support</li>
         </ul>
       </div>
       <div class="card">
+        <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1F4E79" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg></div>
         <span class="tag" data-fr>PÔLE 3 · INTERNATIONAL</span><span class="tag" data-en>LINE 3 · INTERNATIONAL</span>
         <h3 data-fr>Projets en Afrique de l'Est</h3><h3 data-en>East Africa projects</h3>
         <ul>
-          <li data-fr>Études hydrauliques et hydro-agricoles, bassins versants</li>
+          <li data-fr>Études hydrauliques et hydro-agricoles, planification de bassins versants</li>
           <li data-en>Hydraulic and hydro-agricultural studies, watershed planning</li>
           <li data-fr>Dossiers techniques APS / APD / DAO</li>
           <li data-en>Technical design documentation</li>
           <li data-fr>Études d'impact environnemental et social (EIES)</li>
           <li data-en>Environmental and social impact assessments (ESIA)</li>
-          <li data-fr>Suivi-évaluation de projets (bailleurs : BAD, Banque mondiale, FIDA)</li>
+          <li data-fr>Suivi-évaluation de projets (cadres BAD, Banque mondiale, FIDA)</li>
           <li data-en>Project monitoring &amp; evaluation (AfDB, World Bank, IFAD frameworks)</li>
         </ul>
       </div>
@@ -129,39 +193,109 @@
   </div>
 </section>
 
-<section id="methode" style="padding-top:0">
+<section id="tarifs" class="prices">
+  <div class="wrap">
+    <h2 data-fr>Tarifs repères</h2><h2 data-en>Benchmark pricing</h2>
+    <p class="lead" data-fr>Des points de départ transparents — le prix exact de votre mandat est confirmé par écrit, gratuitement, avant tout engagement.</p>
+    <p class="lead" data-en>Transparent starting points — the exact price of your assignment is confirmed in writing, free of charge, before any commitment.</p>
+    <div class="price-grid">
+      <div class="price"><b data-fr>Métré seul</b><b data-en>Takeoff only</b><div class="amt">450–850 $</div><span data-fr>quantités relevées, poste par poste</span><span data-en>measured quantities, line by line</span></div>
+      <div class="price"><b data-fr>Estimation complète</b><b data-en>Full estimate</b><div class="amt">850–1 500 $</div><span data-fr>quantités + prix unitaires documentés</span><span data-en>quantities + documented unit prices</span></div>
+      <div class="price"><b data-fr>Revue de soumission</b><b data-en>Bid review</b><div class="amt">175–300 $</div><span data-fr>contrôle indépendant avant dépôt</span><span data-en>independent check before you submit</span></div>
+      <div class="price"><b data-fr>SIG et études</b><b data-en>GIS &amp; studies</b><div class="amt" data-fr>Sur devis</div><div class="amt" data-en>Quoted</div><span data-fr>au taux horaire ou au forfait, selon le mandat</span><span data-en>hourly or fixed fee, depending on scope</span></div>
+    </div>
+    <p style="margin-top:20px;color:var(--grey)" data-fr><strong style="color:var(--accent-dark)">Offre de lancement :</strong> −25 % sur vos deux premiers mandats (tarifs de lancement applicables aux mandats signés d'ici le 31 janvier 2027). Acompte de 50 % au démarrage, solde à la livraison.</p>
+    <p style="margin-top:20px;color:var(--grey)" data-en><strong style="color:var(--accent-dark)">Launch offer:</strong> 25% off your first two assignments (launch pricing for assignments signed by January 31, 2027). 50% deposit to start, balance on delivery.</p>
+  </div>
+</section>
+
+<section id="methode">
   <div class="wrap">
     <h2 data-fr>Notre méthode</h2><h2 data-en>Our method</h2>
-    <p class="lead" data-fr>La méthode des métrés rigoureux, appliquée à chaque mandat.</p>
-    <p class="lead" data-en>Disciplined quantity-surveying method, applied to every assignment.</p>
+    <p class="lead" data-fr>La méthode des métrés rigoureux, appliquée à chaque mandat — mesures de centre en centre, chaque poste surligné sur les plans au fur et à mesure.</p>
+    <p class="lead" data-en>Disciplined quantity-surveying method on every assignment — centre-to-centre measurement, every item highlighted on the drawings as it is measured.</p>
     <div class="steps">
-      <div class="step"><b>1</b><p data-fr><strong>Cadrage.</strong> Réception des plans, vérification de complétude, prix et délai confirmés par écrit avant de commencer.</p><p data-en><strong>Scoping.</strong> Drawings received and checked for completeness; price and deadline confirmed in writing before we start.</p></div>
-      <div class="step"><b>2</b><p data-fr><strong>Métré.</strong> Mesures de centre en centre ; chaque poste est surligné sur les plans au fur et à mesure — rien d'omis, rien en double.</p><p data-en><strong>Takeoff.</strong> Centre-to-centre measurement; every item is highlighted on the drawings as it is measured — nothing missed, nothing counted twice.</p></div>
-      <div class="step"><b>3</b><p data-fr><strong>Estimation.</strong> Quantités multipliées par des prix unitaires documentés, avec la source et la date de chaque prix.</p><p data-en><strong>Estimate.</strong> Quantities priced with documented unit rates — source and date shown for every price.</p></div>
-      <div class="step"><b>4</b><p data-fr><strong>Contrôle et livraison.</strong> Repasse complète des plans, sommaire d'une page (hypothèses, exclusions, points à valider), chiffrier livré.</p><p data-en><strong>Check &amp; deliver.</strong> Full re-check against the drawings, a one-page summary (assumptions, exclusions, items to confirm), and the finished workbook.</p></div>
+      <div class="step"><b>1</b><p data-fr><strong>Cadrage.</strong> Réception des plans, vérification de complétude, prix et délai confirmés par écrit avant de commencer.</p><p data-en><strong>Scoping.</strong> Drawings checked for completeness; price and deadline confirmed in writing before we start.</p></div>
+      <div class="step"><b>2</b><p data-fr><strong>Métré.</strong> Relevé méthodique poste par poste — rien d'omis, rien compté en double.</p><p data-en><strong>Takeoff.</strong> Methodical line-by-line measurement — nothing missed, nothing counted twice.</p></div>
+      <div class="step"><b>3</b><p data-fr><strong>Estimation.</strong> Quantités multipliées par des prix unitaires documentés, source et date à l'appui.</p><p data-en><strong>Estimate.</strong> Quantities priced with documented unit rates — source and date shown.</p></div>
+      <div class="step"><b>4</b><p data-fr><strong>Contrôle et livraison.</strong> Repasse complète des plans, sommaire d'une page et chiffrier livré à la date promise.</p><p data-en><strong>Check &amp; deliver.</strong> Full re-check against the drawings, one-page summary, workbook delivered on the promised date.</p></div>
     </div>
+  </div>
+</section>
+
+<section id="faq" class="faq" style="padding-top:0">
+  <div class="wrap">
+    <h2 data-fr>Questions fréquentes</h2><h2 data-en>Frequently asked questions</h2>
+    <p class="lead"></p>
+    <details>
+      <summary data-fr>Quels formats de plans acceptez-vous ?</summary><summary data-en>Which drawing formats do you accept?</summary>
+      <p data-fr>PDF et DWG, par courriel ou lien de partage. Si le dossier est incomplet (coupes manquantes, échelle douteuse), nous vous le signalons au cadrage — avant de facturer quoi que ce soit.</p>
+      <p data-en>PDF and DWG, by email or share link. If the set is incomplete (missing sections, doubtful scale), we flag it at scoping — before charging anything.</p>
+    </details>
+    <details>
+      <summary data-fr>Quels sont les délais réels ?</summary><summary data-en>What are the real turnaround times?</summary>
+      <p data-fr>Repère : 5 jours ouvrables pour un métré complet d'une maison unifamiliale. Le délai exact de votre mandat est confirmé par écrit au cadrage, et tenu. Un besoin urgent avant une date de dépôt ? Dites-le dès la demande.</p>
+      <p data-en>Benchmark: 5 business days for a complete single-family takeoff. Your exact deadline is confirmed in writing at scoping, and kept. Facing a hard bid deadline? Say so in your request.</p>
+    </details>
+    <details>
+      <summary data-fr>L'estimation décide-t-elle de mon prix de soumission ?</summary><summary data-en>Does the estimate set my bid price?</summary>
+      <p data-fr>Non — et c'est volontaire. L'estimation est un outil d'aide à la décision : quantités vérifiées, prix documentés, hypothèses écrites. La décision finale de prix vous appartient, avec votre connaissance de vos coûts, de vos marges et du marché.</p>
+      <p data-en>No — by design. The estimate is a decision tool: verified quantities, documented prices, written assumptions. The final bid price is yours, based on your costs, margins and read of the market.</p>
+    </details>
+    <details>
+      <summary data-fr>Mes plans et mes prix restent-ils confidentiels ?</summary><summary data-en>Do my drawings and prices stay confidential?</summary>
+      <p data-fr>Oui. Vos documents ne servent qu'à votre mandat, ne sont jamais partagés, et notre contrat de service inclut une clause de confidentialité de deux ans.</p>
+      <p data-en>Yes. Your documents are used only for your assignment, never shared, and our service agreement includes a two-year confidentiality clause.</p>
+    </details>
   </div>
 </section>
 
 <section id="apropos" class="about">
   <div class="wrap">
     <h2 data-fr>À propos</h2><h2 data-en>About</h2>
-    <p data-fr>Nodesias Consulting est le bureau de <strong>Nouradin Elmi Robleh</strong>, technologue en génie civil en formation au Collège La Cité (Ottawa) et hydrologue de métier : 13 ans d'expérience en planification et gestion de projets d'ouvrages hydrauliques et hydro-agricoles en Afrique de l'Est — études de bassins versants, dossiers d'appels d'offres de bailleurs internationaux, supervision de chantiers — et une pratique confirmée des outils du métier : Excel avancé, MS Project, QGIS et ArcGIS.</p>
-    <p data-en>Nodesias Consulting is the practice of <strong>Nouradin Elmi Robleh</strong>, a civil engineering technology student at Collège La Cité (Ottawa) and a hydrologist by profession: 13 years planning and managing hydraulic and hydro-agricultural projects in East Africa — watershed studies, international donor tender files, site supervision — with proven command of the tools of the trade: advanced Excel, MS Project, QGIS and ArcGIS.</p>
-    <p data-fr>Entreprise individuelle enregistrée en Ontario (NEO 1001782708), basée à Ottawa et bilingue français-anglais.</p>
-    <p data-en>A sole proprietorship registered in Ontario (Ontario Business Number 1001782708), based in Ottawa and bilingual in French and English.</p>
+    <p data-fr>Nodesias Consulting est le bureau de <strong>Nouradin Elmi Robleh</strong>, hydrologue de métier et technologue en génie civil en formation au Collège La Cité (Ottawa) : 13 ans de planification et de gestion de projets d'ouvrages hydrauliques et hydro-agricoles en Afrique de l'Est — études complètes de bassins versants, dossiers d'appels d'offres de bailleurs internationaux, supervision de chantiers — et une maîtrise confirmée des outils du métier : Excel avancé, MS Project, QGIS et ArcGIS.</p>
+    <p data-en>Nodesias Consulting is the practice of <strong>Nouradin Elmi Robleh</strong>, a hydrologist by profession and a civil engineering technology student at Collège La Cité (Ottawa): 13 years planning and managing hydraulic and hydro-agricultural projects in East Africa — complete watershed studies, international donor tender files, site supervision — with proven command of advanced Excel, MS Project, QGIS and ArcGIS.</p>
+    <p data-fr>Entreprise individuelle enregistrée en Ontario (NEO 1001782708), basée à Ottawa, service bilingue français-anglais.</p>
+    <p data-en>A sole proprietorship registered in Ontario (Ontario Business Number 1001782708), based in Ottawa, bilingual in French and English.</p>
   </div>
 </section>
 
 <section id="contact" class="contact">
   <div class="wrap">
-    <h2 data-fr>Parlons de votre prochain dossier</h2><h2 data-en>Let's talk about your next bid</h2>
-    <p data-fr>Envoyez-nous vos plans ou décrivez votre besoin : vous recevez un prix ferme et un délai par écrit, sans engagement.</p>
-    <p data-en>Send us your drawings or describe what you need: you'll get a firm price and a deadline in writing, with no obligation.</p>
-    <div class="grid">
-      <div><strong data-fr>Courriel</strong><strong data-en>Email</strong><br><a href="mailto:enouradin@gmail.com">enouradin@gmail.com</a></div>
-      <div><strong data-fr>Téléphone</strong><strong data-en>Phone</strong><br><a href="tel:+16479178720">(647) 917-8720</a></div>
-      <div><strong data-fr>Base</strong><strong data-en>Based in</strong><br><span data-fr>Ottawa, Ontario, Canada</span><span data-en>Ottawa, Ontario, Canada</span></div>
+    <h2 data-fr>Demandez votre devis gratuit</h2><h2 data-en>Request your free quote</h2>
+    <div class="cols">
+      <div class="cinfo">
+        <p data-fr>Envoyez vos plans ou décrivez votre besoin : vous recevez un <strong>prix ferme et un délai par écrit</strong>, sans engagement, sous 1 jour ouvrable.</p>
+        <p data-en>Send your drawings or describe your need: you'll receive a <strong>firm price and a deadline in writing</strong>, with no obligation, within 1 business day.</p>
+        <p><strong data-fr>Courriel</strong><strong data-en>Email</strong><br><a href="mailto:enouradin@gmail.com">enouradin@gmail.com</a></p>
+        <p><strong data-fr>Téléphone</strong><strong data-en>Phone</strong><br><a href="tel:+16479178720">(647) 917-8720</a></p>
+        <p><strong data-fr>Base</strong><strong data-en>Based in</strong><br>Ottawa, Ontario, Canada</p>
+      </div>
+      <form action="https://formsubmit.co/enouradin@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Demande de devis — site Nodesias Consulting">
+        <input type="hidden" name="_template" value="table">
+        <label data-fr>Nom</label><label data-en>Name</label>
+        <input type="text" name="Nom" required>
+        <label data-fr>Entreprise</label><label data-en>Company</label>
+        <input type="text" name="Entreprise">
+        <label data-fr>Courriel</label><label data-en>Email</label>
+        <input type="email" name="Courriel" required>
+        <label data-fr>Type de besoin</label><label data-en>Type of request</label>
+        <select name="Besoin">
+          <option>Métré / Takeoff</option>
+          <option>Estimation complète / Full estimate</option>
+          <option>Revue de soumission / Bid review</option>
+          <option>SIG et études / GIS &amp; studies</option>
+          <option>Projet international / International project</option>
+          <option>Autre / Other</option>
+        </select>
+        <label data-fr>Message</label><label data-en>Message</label>
+        <textarea name="Message" required></textarea>
+        <button type="submit" data-fr>Envoyer la demande</button>
+        <button type="submit" data-en>Send the request</button>
+        <p class="fineprint" data-fr>Le premier envoi déclenche un courriel d'activation du service de formulaire — vos demandes suivantes arriveront directement.</p>
+        <p class="fineprint" data-en>The first submission triggers an activation email from the form service — later requests arrive directly.</p>
+      </form>
     </div>
   </div>
 </section>
