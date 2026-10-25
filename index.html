@@ -366,7 +366,7 @@
       <div class="cinfo">
         <p data-fr>Envoyez vos plans ou décrivez votre besoin : vous recevez un <strong>prix fixe et un délai par écrit</strong>, sans engagement, sous 1 jour ouvrable.</p>
         <p data-en>Send your drawings or describe your need: you'll receive a <strong>fixed price and a deadline in writing</strong>, with no obligation, within 1 business day.</p>
-        <p><strong data-fr>Courriel</strong><strong data-en>Email</strong><br><a href="mailto:enouradin@gmail.com">enouradin@gmail.com</a></p>
+        <p><strong data-fr>Courriel</strong><strong data-en>Email</strong><br><a href="mailto:contact.nodesiasconsulting@gmail.com">contact.nodesiasconsulting@gmail.com</a></p>
         <p><strong data-fr>Téléphone</strong><strong data-en>Phone</strong><br><a href="tel:+16479178720">(647) 917-8720</a></p>
         <p><strong data-fr>Base</strong><strong data-en>Based in</strong><br>Ottawa, Ontario, Canada</p>
         <p class="fineprint" data-fr>Réponse garantie sous 1 jour ouvrable. Vos plans et vos prix restent confidentiels.</p>
@@ -399,7 +399,7 @@
         <button type="submit" id="sendBtn" data-fr>Envoyer — recevoir mon prix fixe</button>
         <button type="submit" data-en>Send — get my fixed price</button>
         <div class="msgok" id="msgOk"><span data-fr>✅ Demande envoyée ! Vous recevrez votre prix fixe et votre délai par écrit sous 1 jour ouvrable.</span><span data-en>✅ Request sent! You'll receive your fixed price and deadline in writing within 1 business day.</span></div>
-        <div class="msgerr" id="msgErr"><span data-fr>L'envoi n'a pas abouti — écrivez-nous directement à </span><span data-en>The send didn't go through — email us directly at </span><a href="mailto:enouradin@gmail.com">enouradin@gmail.com</a></div>
+        <div class="msgerr" id="msgErr"><span data-fr>L'envoi n'a pas abouti — écrivez-nous directement à </span><span data-en>The send didn't go through — email us directly at </span><a href="mailto:contact.nodesiasconsulting@gmail.com">contact.nodesiasconsulting@gmail.com</a></div>
       </form>
     </div>
   </div>
@@ -440,7 +440,7 @@ document.getElementById('devisForm').addEventListener('submit',function(ev){
   if(!f.checkValidity()){ f.reportValidity(); return; }
   var btn=document.getElementById('sendBtn'); btn.disabled=true;
   var data={}; new FormData(f).forEach(function(v,k){data[k]=v;});
-  fetch('https://formsubmit.co/ajax/enouradin@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
+  fetch('https://formsubmit.co/ajax/contact.nodesiasconsulting@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
   .then(function(r){return r.json();})
   .then(function(j){ if(j && (j.success===true || j.success==='true')){ f.reset(); ok.style.display='block'; ok.scrollIntoView({behavior:'smooth',block:'center'}); } else { err.style.display='block'; } })
   .catch(function(){ err.style.display='block'; })
