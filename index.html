@@ -125,6 +125,35 @@
   [data-en]{display:none}
   body.en [data-fr]{display:none}
   body.en [data-en]{display:revert}
+  /* ===== Assistant de clavardage Nodesias (widget autonome) ===== */
+  #ndChatBtn{position:fixed;right:22px;bottom:22px;z-index:60;width:58px;height:58px;border-radius:50%;border:0;background:var(--accent);color:#fff;cursor:pointer;box-shadow:0 6px 20px rgba(19,46,73,.35);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s}
+  #ndChatBtn:hover{background:var(--accent-dark);transform:translateY(-2px)}
+  #ndChatBtn:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+  @media(max-width:760px){#ndChatBtn{bottom:66px;right:16px}}
+  #ndChatPanel{position:fixed;right:22px;bottom:92px;z-index:60;width:360px;max-width:calc(100vw - 24px);height:520px;max-height:calc(100vh - 120px);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 44px rgba(19,46,73,.30);display:none;flex-direction:column;overflow:hidden}
+  #ndChatPanel.open{display:flex}
+  @media(max-width:760px){#ndChatPanel{bottom:132px;right:12px;height:auto}}
+  .ndc-head{background:var(--navy);color:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px}
+  .ndc-title{font-weight:700;font-size:.98rem;line-height:1.15}
+  .ndc-sub{font-size:.74rem;color:#B9CFE2}
+  .ndc-lang{margin-left:auto;display:flex;gap:4px}
+  .ndc-lang button{border:1px solid #9DB8CF;background:transparent;color:#fff;border-radius:14px;padding:2px 9px;font-size:.74rem;font-weight:700;cursor:pointer}
+  .ndc-lang button.on{background:#fff;color:var(--navy)}
+  .ndc-close{background:transparent;border:0;color:#fff;font-size:1.3rem;cursor:pointer;line-height:1;padding:2px 4px}
+  #ndcMsgs{flex:1;overflow-y:auto;padding:14px;background:var(--light);display:flex;flex-direction:column;gap:9px}
+  .ndc-msg{max-width:86%;padding:9px 12px;border-radius:12px;font-size:.9rem;line-height:1.45;white-space:pre-line;word-wrap:break-word}
+  .ndc-bot{background:#fff;border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px}
+  .ndc-user{background:var(--navy);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+  .ndc-msg a{color:var(--accent-dark);font-weight:700}
+  #ndcChips{display:flex;flex-wrap:wrap;gap:6px;padding:9px 10px;background:var(--light);border-top:1px solid var(--line)}
+  .ndc-chip{border:1px solid var(--navy);color:var(--navy);background:#fff;border-radius:16px;padding:5px 11px;font-size:.8rem;font-weight:600;cursor:pointer}
+  .ndc-chip:hover{background:var(--navy);color:#fff}
+  .ndc-chip.cta{background:var(--accent);border-color:var(--accent);color:#fff}
+  .ndc-chip.cta:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
+  #ndcForm{display:flex;gap:7px;padding:10px;border-top:1px solid var(--line);background:#fff}
+  #ndcInput{flex:1;padding:9px 11px;border:1px solid #9DB8CF;border-radius:8px;font:inherit;font-size:.9rem;min-width:0}
+  #ndcSend{background:var(--navy);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-weight:700;cursor:pointer}
+  #ndcSend:hover{background:var(--navy-dark)}
 </style>
 </head>
 <body>
@@ -424,6 +453,30 @@
   <a class="go" href="#contact" data-fr>Devis gratuit</a><a class="go" href="#contact" data-en>Free quote</a>
 </div>
 
+<!-- ===== Assistant de clavardage Nodesias ===== -->
+<button id="ndChatBtn" type="button" aria-label="Assistant Nodesias — ouvrir le clavardage / Open the chat" aria-haspopup="dialog" aria-expanded="false">
+  <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</button>
+<div id="ndChatPanel" role="dialog" aria-label="Assistant Nodesias Consulting">
+  <div class="ndc-head">
+    <div>
+      <div class="ndc-title">Assistant Nodesias</div>
+      <div class="ndc-sub" id="ndcSub">Réponses immédiates · devis gratuit</div>
+    </div>
+    <div class="ndc-lang">
+      <button type="button" id="ndcFr">FR</button>
+      <button type="button" id="ndcEn">EN</button>
+    </div>
+    <button type="button" class="ndc-close" id="ndcClose" aria-label="Fermer / Close">×</button>
+  </div>
+  <div id="ndcMsgs" aria-live="polite"></div>
+  <div id="ndcChips"></div>
+  <form id="ndcForm">
+    <input id="ndcInput" type="text" autocomplete="off" placeholder="Écrivez votre question…">
+    <button id="ndcSend" type="submit">Envoyer</button>
+  </form>
+</div>
+
 <script>
 function setLang(l){
   document.body.classList.toggle('en', l==='en');
@@ -446,6 +499,115 @@ document.getElementById('devisForm').addEventListener('submit',function(ev){
   .catch(function(){ err.style.display='block'; })
   .finally(function(){ btn.disabled=false; });
 });
+</script>
+<script>
+/* ===== Assistant de clavardage Nodesias — 100 % local, aucune dépendance ===== */
+(function(){
+  var btn=document.getElementById('ndChatBtn'), panel=document.getElementById('ndChatPanel'),
+      msgs=document.getElementById('ndcMsgs'), chips=document.getElementById('ndcChips'),
+      form=document.getElementById('ndcForm'), input=document.getElementById('ndcInput'),
+      sub=document.getElementById('ndcSub'), sendBtn=document.getElementById('ndcSend'),
+      bFr=document.getElementById('ndcFr'), bEn=document.getElementById('ndcEn'), started=false;
+  var T={
+    fr:{sub:"Réponses immédiates · devis gratuit",placeholder:"Écrivez votre question…",send:"Envoyer",cta:"Demander un devis gratuit",
+      welcome:"Bonjour, et bienvenue chez Nodesias Consulting. Je peux vous renseigner sur nos services, nos tarifs et nos délais. Que souhaitez-vous savoir ?",
+      topics:[["services","Nos services"],["tarifs","Tarifs"],["delais","Délais"],["devis","Demander un devis"],["contact","Contact"]],
+      services:"Nos trois pôles :\n1) Estimation et métrés pour entrepreneurs résidentiels (Ottawa-Gatineau) ;\n2) SIG et études techniques, en sous-traitance ;\n3) Appui aux appels d'offres et aux projets eau en Afrique de l'Est.\nDites-moi ce qui vous intéresse, ou demandez un devis gratuit.",
+      tarifs:"Tarifs pilotes :\n• Métré seul : 450–850 $\n• Estimation complète : 850–1 500 $\n• Revue de soumission : 175–300 $\nOffre de lancement : −25 % sur vos deux premiers mandats signés avant le 31 janvier 2027.\nLe prix exact de votre mandat est confirmé par écrit, gratuitement, avant tout engagement.",
+      delais:"Après réception de vos plans, le prix de votre métré est confirmé par écrit sous 1 jour ouvrable — et ce devis est gratuit.\nRepère : environ 5 jours ouvrables pour un métré complet (maison unifamiliale) ; le délai exact de votre mandat est confirmé par écrit au cadrage.",
+      devis:"Avec plaisir. Le devis du métré est gratuit : envoyez vos plans via le formulaire de cette page et vous recevrez un prix fixe et un délai par écrit sous 1 jour ouvrable. Cliquez sur « Demander un devis gratuit » ci-dessous pour y aller directement — ou écrivez à contact.nodesiasconsulting@gmail.com.",
+      contact:"Vous pouvez nous joindre :\n• Courriel : contact.nodesiasconsulting@gmail.com\n• Téléphone : 647-917-8720\nRéponse sous 1 jour ouvrable. Pour un prix fixe, le formulaire de devis reste le plus rapide.",
+      sceau:"Nodesias Consulting ne scelle pas de plans : nous n'offrons pas de services d'ingénierie professionnelle réglementés en Ontario (pas de permis PEO). Pour un avis technique scellé, adressez-vous à un ingénieur autorisé. Pour un métré, une estimation ou une étude technique, passez par le formulaire de devis.",
+      formats:"Nous acceptons les plans en PDF et DWG, par courriel ou par lien de partage (Drive, Dropbox, WeTransfer). Vous pouvez joindre le lien dans le formulaire de devis.",
+      hello:"Bonjour ! Je peux vous renseigner sur nos services, nos tarifs ou nos délais — ou vous diriger vers le devis gratuit.",
+      thanks:"Avec plaisir ! Autre chose ?",
+      fallback:"Je n'ai pas la réponse à cette question. Je peux vous renseigner sur nos services, nos tarifs et nos délais — ou écrivez-nous à contact.nodesiasconsulting@gmail.com, réponse sous 1 jour ouvrable."},
+    en:{sub:"Instant answers · free quote",placeholder:"Type your question…",send:"Send",cta:"Get a free quote",
+      welcome:"Hello, and welcome to Nodesias Consulting. I can help with our services, pricing and turnaround times. What would you like to know?",
+      topics:[["services","Our services"],["tarifs","Pricing"],["delais","Turnaround"],["devis","Get a quote"],["contact","Contact"]],
+      services:"Our three service lines:\n1) Estimating & quantity takeoffs for residential contractors (Ottawa–Gatineau);\n2) GIS & technical studies, as a subcontractor;\n3) Bid support and water projects in East Africa.\nTell me what you need, or request a free quote.",
+      tarifs:"Pilot pricing:\n• Takeoff only: $450–850\n• Full estimate: $850–1,500\n• Bid review: $175–300\nLaunch offer: 25% off your first two assignments signed before January 31, 2027.\nYour exact price is confirmed in writing, free of charge, before any commitment.",
+      delais:"Once we receive your drawings, your takeoff price is confirmed in writing within 1 business day — and that quote is free.\nBenchmark: about 5 business days for a complete takeoff (single-family home); your exact deadline is confirmed in writing at scoping.",
+      devis:"Happy to help. The takeoff quote is free: send your drawings through the form on this page and you will receive a fixed price and a deadline in writing within 1 business day. Click 'Get a free quote' below to go straight there — or email contact.nodesiasconsulting@gmail.com.",
+      contact:"You can reach us:\n• Email: contact.nodesiasconsulting@gmail.com\n• Phone: 647-917-8720\nWe reply within 1 business day. For a fixed price, the quote form is the fastest route.",
+      sceau:"Nodesias Consulting does not seal drawings: we do not provide regulated professional engineering services in Ontario (no PEO licence). For a sealed technical opinion, please contact a licensed engineer. For a takeoff, an estimate or a technical study, use the quote form.",
+      formats:"We accept drawings in PDF and DWG, by email or share link (Drive, Dropbox, WeTransfer). You can add the link in the quote form.",
+      hello:"Hello! I can help with our services, pricing or turnaround — or point you to the free quote.",
+      thanks:"You're welcome! Anything else?",
+      fallback:"I don't have an answer to that one. I can help with our services, pricing and turnaround — or email us at contact.nodesiasconsulting@gmail.com; we reply within 1 business day."}
+  };
+  function L(){return document.body.classList.contains('en')?'en':'fr';}
+  function norm(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
+  function has(t,arr){for(var i=0;i<arr.length;i++){if(t.indexOf(arr[i])>-1)return true;}return false;}
+  function answer(raw){
+    var t=' '+norm(raw)+' ', x=T[L()];
+    if(has(t,['sceau','scell','seal','stamp','peo'])) return x.sceau;
+    if(/(^|\s)(bonjour|salut|hello|hi|hey|bonsoir)([\s!.,]|$)/.test(t)) return x.hello;
+    if(has(t,['merci','thank'])) return x.thanks;
+    if(has(t,['contact','joindre','telephone','phone','appeler','call','courriel','email','e-mail','humain','human','numero','reach','parler a quelqu'])) return x.contact;
+    if(has(t,['tarif','prix','price','pricing','cost','combien','how much','cout'])) return x.tarifs;
+    if(has(t,['delai','temps','turnaround','how long','quand','deadline','rapide'])) return x.delais;
+    if(has(t,['format','pdf','dwg','drive','dropbox','wetransfer','fichier'])) return x.formats;
+    if(has(t,['devis','quote','soumission','gratuit','free','envoyer','send','plans'])) return x.devis;
+    if(has(t,['service','offre','offer','metre','takeoff','estimation','estimate','sig','gis','cartograph','afrique','africa','international','eau','water','etude','study','studies'])) return x.services;
+    return x.fallback;
+  }
+  function linkify(s){
+    var e=s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    e=e.replace(/contact\.nodesiasconsulting@gmail\.com/g,'<a href="mailto:contact.nodesiasconsulting@gmail.com">contact.nodesiasconsulting@gmail.com</a>');
+    e=e.replace(/647-917-8720/g,'<a href="tel:+16479178720">647-917-8720</a>');
+    return e;
+  }
+  function addMsg(text,who){
+    var d=document.createElement('div');
+    d.className='ndc-msg '+(who==='user'?'ndc-user':'ndc-bot');
+    if(who==='user'){ d.textContent=text; } else { d.innerHTML=linkify(text); }
+    msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
+  }
+  function goQuote(){
+    closeChat();
+    var el=document.getElementById('contact');
+    if(el) el.scrollIntoView({behavior:'smooth'});
+    setTimeout(function(){ var i=document.querySelector('#devisForm input[name="Nom"]'); if(i) i.focus({preventScroll:true}); },750);
+  }
+  function renderChips(){
+    var x=T[L()]; chips.innerHTML='';
+    var c=document.createElement('button'); c.type='button'; c.className='ndc-chip cta'; c.textContent='📋 '+x.cta;
+    c.addEventListener('click',goQuote); chips.appendChild(c);
+    x.topics.forEach(function(tp){
+      if(tp[0]==='devis') return;
+      var b=document.createElement('button'); b.type='button'; b.className='ndc-chip'; b.textContent=tp[1];
+      b.addEventListener('click',function(){ addMsg(tp[1],'user'); var key=tp[0]; setTimeout(function(){ addMsg(T[L()][key],'bot'); renderChips(); },300); });
+      chips.appendChild(b);
+    });
+  }
+  function syncLang(){
+    var l=L(), x=T[l];
+    sub.textContent=x.sub; input.placeholder=x.placeholder; sendBtn.textContent=x.send;
+    bFr.classList.toggle('on',l==='fr'); bEn.classList.toggle('on',l==='en');
+    renderChips();
+  }
+  function openChat(){
+    panel.classList.add('open'); btn.setAttribute('aria-expanded','true'); syncLang();
+    if(!started){ started=true; addMsg(T[L()].welcome,'bot'); }
+    setTimeout(function(){ input.focus(); },60);
+  }
+  function closeChat(){ panel.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+  btn.addEventListener('click',function(){ if(panel.classList.contains('open')){ closeChat(); } else { openChat(); } });
+  document.getElementById('ndcClose').addEventListener('click',closeChat);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&panel.classList.contains('open')) closeChat(); });
+  bFr.addEventListener('click',function(){ if(window.setLang) window.setLang('fr'); syncLang(); });
+  bEn.addEventListener('click',function(){ if(window.setLang) window.setLang('en'); syncLang(); });
+  var sf=document.getElementById('btnFr'), se=document.getElementById('btnEn');
+  if(sf) sf.addEventListener('click',function(){ setTimeout(syncLang,0); });
+  if(se) se.addEventListener('click',function(){ setTimeout(syncLang,0); });
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault(); var v=input.value.trim(); if(!v) return; input.value='';
+    addMsg(v,'user'); var a=answer(v);
+    setTimeout(function(){ addMsg(a,'bot'); renderChips(); },320);
+  });
+  syncLang();
+})();
 </script>
 </body>
 </html>
