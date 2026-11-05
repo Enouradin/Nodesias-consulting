@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HydroCalc — Calculateurs hydrologie 100 % gratuits</title>
+<meta name="description" content="Calculateurs hydrologie 100 % gratuits : méthode rationnelle, SCS Curve Number, temps de concentration, courbes IDF, Manning, convertisseur d'unités.">
+<style>
+  :root{
+    --navy:#0b2a4a; --teal:#0e7c8c; --cyan:#17b8ce; --bg:#f2f6f9;
+    --card:#ffffff; --text:#1d2b36; --muted:#5d7285; --line:#dbe5ec;
+    --red:#c00; --reddark:#a00000;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       background:var(--bg); color:var(--text); line-height:1.55;}
+  header{background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; padding:2.2rem 1.2rem; text-align:center;}
+  header h1{font-size:1.9rem; letter-spacing:.5px;}
+  header h1 span{color:var(--cyan);}
+  header p{opacity:.85; margin-top:.4rem; font-size:1rem;}
+  .free-pill{display:inline-block; background:#25d366; color:#fff; font-weight:800; font-size:.8rem;
+    padding:.25rem .9rem; border-radius:999px; margin-top:.7rem; letter-spacing:.5px;}
+  nav.tabs{display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; padding:1rem; background:#fff; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10;}
+  nav.tabs button{border:1px solid var(--line); background:#fff; color:var(--navy); padding:.55rem 1rem;
+    border-radius:999px; cursor:pointer; font-size:.92rem; font-weight:600; transition:all .15s;}
+  nav.tabs button:hover{border-color:var(--cyan);}
+  nav.tabs button.active{background:var(--navy); color:#fff; border-color:var(--navy);}
+  main{max-width:860px; margin:0 auto; padding:1.5rem 1.2rem 3rem;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:1.4rem; margin-bottom:1.2rem;
+    box-shadow:0 2px 8px rgba(11,42,74,.06);}
+  .card h2{font-size:1.25rem; color:var(--navy); margin-bottom:.3rem;}
+  .card .formula{background:#eef6f8; border-left:4px solid var(--cyan); padding:.6rem .9rem; border-radius:0 8px 8px 0;
+    font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.92rem; margin:.8rem 0; color:#0b3a4a;}
+  label{display:block; font-weight:600; font-size:.9rem; margin:.9rem 0 .3rem; color:var(--navy);}
+  input,select{width:100%; padding:.65rem .8rem; border:1px solid var(--line); border-radius:8px; font-size:1rem;}
+  input:focus,select:focus{outline:2px solid var(--cyan); border-color:var(--cyan);}
+  .row{display:grid; grid-template-columns:1fr 1fr; gap:.8rem;}
+  @media(max-width:560px){.row{grid-template-columns:1fr;}}
+  button.calc{margin-top:1.1rem; background:var(--teal); color:#fff; border:none; padding:.75rem 1.6rem;
+    font-size:1rem; font-weight:700; border-radius:10px; cursor:pointer; width:100%;}
+  button.calc:hover{background:#0a6a78;}
+  .result{display:none; margin-top:1.1rem; background:#eaf7f3; border:1px solid #bfe6d8; border-radius:10px; padding:1rem;}
+  .result.show{display:block;}
+  .result .big{font-size:1.7rem; font-weight:800; color:var(--navy);}
+  .result .sub{color:var(--muted); font-size:.9rem; margin-top:.25rem;}
+  .error{color:#b3261e; font-size:.88rem; margin-top:.5rem; display:none;}
+  .hint{font-size:.85rem; color:var(--muted); margin-top:.6rem;}
+  .badge{display:inline-block; background:#e6f7fa; color:var(--teal); font-size:.75rem; font-weight:700;
+    padding:.2rem .7rem; border-radius:999px; margin-bottom:.5rem; letter-spacing:.4px;}
+  .subscribe{background:linear-gradient(135deg,#20060a,#4a0d12); color:#fff; border-radius:14px; padding:1.8rem 1.4rem;
+    text-align:center; margin:1.5rem 0; border:1px solid #5c1116;}
+  .subscribe h2{font-size:1.35rem; margin-bottom:.4rem;}
+  .subscribe p{opacity:.85; font-size:.95rem; margin-bottom:1.1rem;}
+  .yt-btn{display:inline-block; background:var(--red); color:#fff; font-weight:800; font-size:1.05rem;
+    padding:.8rem 2.2rem; border-radius:999px; text-decoration:none; transition:background .15s;}
+  .yt-btn:hover{background:var(--reddark);}
+  footer{background:var(--navy); color:#cfe0ec; text-align:center; padding:1.8rem 1.2rem; font-size:.9rem;}
+  footer a{color:var(--cyan); text-decoration:none; margin:0 .5rem;}
+  footer a:hover{text-decoration:underline;}
+  footer .yt-link{color:#ff6b6b; font-weight:700;}
+footer .shop-link{color:#ffd166; font-weight:700; border:1px solid #ffd166; border-radius:999px; padding:.3rem .9rem;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>💧 Hydro<span>Calc</span></h1>
+  <p>Calculateurs hydrologie pour ingénieurs, techniciens et étudiants</p>
+  <span class="free-pill">100 % GRATUIT</span>
+</header>
+
+<nav class="tabs">
+  <button class="active" data-tab="rationnelle">Méthode rationnelle</button>
+  <button data-tab="scs">SCS Curve Number</button>
+  <button data-tab="kirpich">Temps de concentration</button>
+  <button data-tab="idf">Courbes IDF</button>
+  <button data-tab="volume">Volume ruisselé</button>
+  <button data-tab="manning">Manning</button>
+  <button data-tab="convert">Convertisseur</button>
+</nav>
+
+<main>
+
+<div style="background:linear-gradient(135deg,#0b2a4a,#0e7c8c);color:#fff;border-radius:12px;padding:18px 20px;margin:18px 0">
+  <strong style="font-size:1.1rem">🆕 HydroCalc PRO — Dépistage du risque d'inondation</strong>
+  <p style="margin:8px 0 12px;color:#e6f4f8">Nouvel outil pour petites municipalités et firmes : indice de risque 0–100, volume de ruissellement estimé et rapport automatique en langage clair, en quelques minutes.</p>
+  <a href="depistage.html" style="display:inline-block;background:#17b8ce;color:#04263b;font-weight:700;padding:10px 18px;border-radius:8px;text-decoration:none">Lancer le dépistage →</a>
+</div>
+
+<!-- 1. MÉTHODE RATIONNELLE -->
+<section class="panel active" id="rationnelle">
+  <div class="card">
+    <span class="badge">DÉBIT DE POINTE</span>
+    <h2>Méthode rationnelle</h2>
+    <p class="hint">Estime le débit de pointe d'un petit bassin versant (&lt; 2 km² typiquement).</p>
+    <div class="formula">Q = C × I × A / 360 &nbsp;→&nbsp; Q en m³/s, I en mm/h, A en ha</div>
+    <label for="r-surface">Occupation du sol (coefficient C)</label>
+    <select id="r-surface">
+      <option value="0.90">Toiture / surface imperméable — C = 0,90</option>
+      <option value="0.85">Asphalte, béton — C = 0,85</option>
+      <option value="0.60">Gravier compacté — C = 0,60</option>
+      <option value="0.30">Culture, terrain agricole — C = 0,30</option>
+      <option value="0.20" selected>Pelouse, parc — C = 0,20</option>
+      <option value="0.15">Forêt — C = 0,15</option>
+    </select>
+    <div class="row">
+      <div>
+        <label for="r-intensite">Intensité de pluie I (mm/h)</label>
+        <input type="number" id="r-intensite" min="0.1" max="500" step="0.1" value="60">
+      </div>
+      <div>
+        <label for="r-aire">Surface du bassin A (ha)</label>
+        <input type="number" id="r-aire" min="0.01" max="200" step="0.01" value="5">
+      </div>
+    </div>
+    <label for="r-c">Coefficient C personnalisé (optionnel)</label>
+    <input type="number" id="r-c" min="0.01" max="1" step="0.01" placeholder="Laisser vide pour utiliser la valeur ci-dessus">
+    <button class="calc" onclick="calcRationnelle()">Calculer le débit</button>
+    <div class="error" id="r-error">Vérifiez les valeurs saisies (nombres positifs).</div>
+    <div class="result" id="r-result">
+      <div class="big" id="r-q"></div>
+      <div class="sub" id="r-sub"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SCS -->
+<section class="panel" id="scs">
+  <div class="card">
+    <span class="badge">LAME D'EAU RUISSELÉE</span>
+    <h2>SCS Curve Number</h2>
+    <p class="hint">Méthode du Soil Conservation Service : estime la lame d'eau ruisselée à partir d'une pluie.</p>
+    <div class="formula">S = 25400/CN − 254 &nbsp;·&nbsp; R = (P − 0,2S)² / (P + 0,8S) si P &gt; 0,2S</div>
+    <div class="row">
+      <div>
+        <label for="s-cn">Curve Number CN (30 – 98)</label>
+        <input type="number" id="s-cn" min="30" max="98" step="1" value="75">
+      </div>
+      <div>
+        <label for="s-pluie">Pluie totale P (mm)</label>
+        <input type="number" id="s-pluie" min="0" max="1000" step="0.5" value="50">
+      </div>
+    </div>
+    <button class="calc" onclick="calcSCS()">Calculer le ruissellement</button>
+    <div class="error" id="s-error">Vérifiez les valeurs saisies.</div>
+    <div class="result" id="s-result">
+      <div class="big" id="s-r"></div>
+      <div class="sub" id="s-sub"></div>
+    </div>
+    <p class="hint">Repères CN : forêt dense ~55 · pâturage ~70 · résidentiel ~80 · urbain dense ~90 · imperméable 98.</p>
+  </div>
+</section>
+
+<!-- 3. KIRPICH -->
+<section class="panel" id="kirpich">
+  <div class="card">
+    <span class="badge">TEMPS DE RÉPONSE DU BASSIN</span>
+    <h2>Temps de concentration — Kirpich</h2>
+    <p class="hint">Temps que met l'eau pour parcourir le chemin hydraulique le plus long jusqu'à l'exutoire.</p>
+    <div class="formula">tc = 0,0195 × L<sup>0,77</sup> × S<sup>−0,385</sup> &nbsp;→&nbsp; tc en minutes</div>
+    <div class="row">
+      <div>
+        <label for="k-longueur">Longueur du chemin hydraulique L (m)</label>
+        <input type="number" id="k-longueur" min="1" max="100000" step="1" value="800">
+      </div>
+      <div>
+        <label for="k-pente">Pente moyenne S (%)</label>
+        <input type="number" id="k-pente" min="0.01" max="60" step="0.01" value="2">
+      </div>
+    </div>
+    <button class="calc" onclick="calcKirpich()">Calculer tc</button>
+    <div class="error" id="k-error">Vérifiez les valeurs saisies.</div>
+    <div class="result" id="k-result">
+      <div class="big" id="k-tc"></div>
+      <div class="sub" id="k-sub"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. IDF -->
+<section class="panel" id="idf">
+  <div class="card">
+    <span class="badge">PLUIE DE PROJET</span>
+    <h2>Courbes IDF — formule de Montana</h2>
+    <p class="hint">Intensité de pluie pour une durée et une période de retour données. Remplacez les coefficients par ceux de votre région.</p>
+    <div class="formula">i = a × T<sup>m</sup> / (t + b)<sup>n</sup> &nbsp;→&nbsp; i en mm/h, t en minutes</div>
+    <div class="row">
+      <div><label for="i-a">Coefficient a</label><input type="number" id="i-a" step="any" value="1200"></div>
+      <div><label for="i-m">Exposant m</label><input type="number" id="i-m" step="any" value="0.20"></div>
+    </div>
+    <div class="row">
+      <div><label for="i-b">Coefficient b</label><input type="number" id="i-b" step="any" value="10"></div>
+      <div><label for="i-n">Exposant n</label><input type="number" id="i-n" step="any" value="0.85"></div>
+    </div>
+    <div class="row">
+      <div><label for="i-t">Durée t (minutes)</label><input type="number" id="i-t" min="1" max="1440" step="1" value="30"></div>
+      <div><label for="i-periode">Période de retour T (ans)</label><input type="number" id="i-periode" min="1" max="1000" step="1" value="25"></div>
+    </div>
+    <button class="calc" onclick="calcIDF()">Calculer l'intensité</button>
+    <div class="error" id="i-error">Vérifiez les valeurs saisies.</div>
+    <div class="result" id="i-result">
+      <div class="big" id="i-v"></div>
+      <div class="sub" id="i-sub"></div>
+    </div>
+    <p class="hint">⚠️ Coefficients d'exemple — utilisez les coefficients IDF officiels de votre municipalité/région pour un usage professionnel.</p>
+  </div>
+</section>
+
+<!-- 5. VOLUME -->
+<section class="panel" id="volume">
+  <div class="card">
+    <span class="badge">VOLUME RUISSELÉ</span>
+    <h2>Volume de ruissellement</h2>
+    <p class="hint">Convertit une lame d'eau ruisselée (SCS) en volume total sur le bassin.</p>
+    <div class="formula">V = R × A × 10 &nbsp;→&nbsp; V en m³, R en mm, A en ha</div>
+    <div class="row">
+      <div><label for="v-lame">Lame ruisselée R (mm)</label><input type="number" id="v-lame" min="0" max="1000" step="0.1" value="18.5"></div>
+      <div><label for="v-aire">Surface du bassin A (ha)</label><input type="number" id="v-aire" min="0.01" max="100000" step="0.01" value="120"></div>
+    </div>
+    <button class="calc" onclick="calcVolume()">Calculer le volume</button>
+    <div class="error" id="v-error">Vérifiez les valeurs saisies.</div>
+    <div class="result" id="v-result">
+      <div class="big" id="v-v"></div>
+      <div class="sub" id="v-sub"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. MANNING -->
+<section class="panel" id="manning">
+  <div class="card">
+    <span class="badge">HYDRAULIQUE À SURFACE LIBRE</span>
+    <h2>Dimensionnement de fossé — Manning</h2>
+    <p class="hint">Capacité d'un canal trapézoïdal en régime uniforme.</p>
+    <div class="formula">Q = (1/n) × A × R<sup>2/3</sup> × S<sup>1/2</sup></div>
+    <div class="row">
+      <div><label for="m-base">Largeur au fond b (m)</label><input type="number" id="m-base" min="0.1" max="50" step="0.05" value="1.0"></div>
+      <div><label for="m-fruit">Fruit des berges z (H:V)</label><input type="number" id="m-fruit" min="0" max="5" step="0.1" value="1.5"></div>
+    </div>
+    <div class="row">
+      <div><label for="m-profond">Profondeur d'eau y (m)</label><input type="number" id="m-profond" min="0.05" max="10" step="0.05" value="0.6"></div>
+      <div><label for="m-n">Coefficient de Manning n</label><input type="number" id="m-n" min="0.01" max="0.15" step="0.001" value="0.030"></div>
+    </div>
+    <label for="m-pente">Pente longitudinale S (%)</label>
+    <input type="number" id="m-pente" min="0.01" max="20" step="0.01" value="0.5">
+    <button class="calc" onclick="calcManning()">Calculer la capacité</button>
+    <div class="error" id="m-error">Vérifiez les valeurs saisies.</div>
+    <div class="result" id="m-result">
+      <div class="big" id="m-q"></div>
+      <div class="sub" id="m-sub"></div>
+    </div>
+    <p class="hint">Repères n : béton lisse 0,013 · terre 0,022 · gravier 0,030 · herbe 0,035 · broussailles 0,05.</p>
+  </div>
+</section>
+
+<!-- 7. CONVERTISSEUR -->
+<section class="panel" id="convert">
+  <div class="card">
+    <span class="badge">UNITÉS</span>
+    <h2>Convertisseur d'unités</h2>
+    <label for="c-cat">Catégorie</label>
+    <select id="c-cat" onchange="majUnites()">
+      <option value="debit">Débit</option>
+      <option value="pluie">Pluie / hauteur d'eau</option>
+      <option value="surface">Surface</option>
+    </select>
+    <div class="row">
+      <div>
+        <label for="c-val">Valeur</label>
+        <input type="number" id="c-val" step="any" value="1">
+      </div>
+      <div>
+        <label for="c-from">De</label>
+        <select id="c-from"></select>
+      </div>
+    </div>
+    <label for="c-to">Vers</label>
+    <select id="c-to"></select>
+    <button class="calc" onclick="calcConvert()">Convertir</button>
+    <div class="error" id="c-error">Vérifiez la valeur saisie.</div>
+    <div class="result" id="c-result">
+      <div class="big" id="c-r"></div>
+    </div>
+  </div>
+</section>
+
+<div class="subscribe">
+  <h2>🔔 Abonnez-vous à Colossal Builds</h2>
+  <p>Mégaprojets, génie civil et chantiers géants — 5 nouveaux Shorts chaque jour sur YouTube.</p>
+  <a class="yt-btn" href="https://www.youtube.com/@TheColossalBuilds?sub_confirmation=1" target="_blank" rel="noopener">S'abonner sur YouTube</a>
+</div>
+
+</main>
+
+<footer>
+  <p>Conçu par <strong>Nouradin Elmi Robleh</strong> — hydrologue, 13 ans d'expérience en ressources en eau.</p>
+  <p style="margin-top:.4rem;">Un outil de <a href="https://nodesiasconsulting.ca/" style="color:#17b8ce;">Nodesias Consulting</a> — bureau d'études techniques, Ottawa.</p>
+  <p style="margin-top:.5rem;">
+    <a class="yt-link" href="https://www.youtube.com/@TheColossalBuilds?sub_confirmation=1" target="_blank" rel="noopener">🔔 YouTube : Colossal Builds</a>
+    <a class="shop-link" href="https://payhip.com/LenoirAska" target="_blank" rel="noopener">🛒 Boutique : livres & outils PDF</a>
+    <a href="https://www.linkedin.com/in/nouradin-elmi-robleh-2696931b6" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.upwork.com/freelancers/~01702533af1dd4a5f5" target="_blank" rel="noopener">Upwork</a>
+  </p>
+  <p class="hint" style="color:#8aa5bb; margin-top:.8rem;">Outil pédagogique — vérifier les résultats pour tout usage professionnel.</p>
+</footer>
+
+<script>
+// --- Onglets ---
+document.querySelectorAll('nav.tabs button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById(b.dataset.tab).classList.add('active');
+  });
+});
+function showResult(id){ document.getElementById(id).classList.add('show'); }
+function showError(id){ const e=document.getElementById(id); e.style.display='block';
+  setTimeout(()=>e.style.display='none',3500); }
+function num(id){ const v=parseFloat(document.getElementById(id).value); return isNaN(v)?null:v; }
+
+// --- 1. Méthode rationnelle : Q(m³/s) = C·I(mm/h)·A(ha)/360 ---
+function calcRationnelle(){
+  const I=num('r-intensite'), A=num('r-aire');
+  let C=num('r-c');
+  if(C===null) C=parseFloat(document.getElementById('r-surface').value);
+  if(I===null||A===null||C===null||I<=0||A<=0||C<=0||C>1){ showError('r-error'); return; }
+  const Q=C*I*A/360;
+  document.getElementById('r-q').textContent=Q.toFixed(3)+' m³/s';
+  document.getElementById('r-sub').textContent='soit '+(Q*1000).toFixed(1)+' L/s  ·  C='+C.toFixed(2)+', I='+I+' mm/h, A='+A+' ha';
+  showResult('r-result');
+}
+
+// --- 2. SCS ---
+function calcSCS(){
+  const CN=num('s-cn'), P=num('s-pluie');
+  if(CN===null||P===null||CN<30||CN>98||P<0){ showError('s-error'); return; }
+  const S=25400/CN-254, Ia=0.2*S;
+  const R=(P>Ia)?Math.pow(P-Ia,2)/(P+0.8*S):0;
+  document.getElementById('s-r').textContent=R.toFixed(1)+' mm ruisselés';
+  document.getElementById('s-sub').textContent='Rétention S = '+S.toFixed(1)+' mm · pluie efficace '+((P>0?(R/P*100):0)).toFixed(0)+'% de P';
+  showResult('s-result');
+}
+
+// --- 3. Kirpich : tc(min) = 0.0195·L^0.77·S^-0.385, L en m, S en m/m ---
+function calcKirpich(){
+  const L=num('k-longueur'), p=num('k-pente');
+  if(L===null||p===null||L<=0||p<=0){ showError('k-error'); return; }
+  const S=p/100;
+  const tc=0.0195*Math.pow(L,0.77)*Math.pow(S,-0.385);
+  const h=Math.floor(tc/60), m=Math.round(tc%60);
+  document.getElementById('k-tc').textContent=tc.toFixed(1)+' min';
+  document.getElementById('k-sub').textContent=h>0?('soit '+h+' h '+m+' min'):'soit '+(tc*60).toFixed(0)+' secondes';
+  showResult('k-result');
+}
+
+// --- 4. IDF Montana : i(mm/h) = a·T^m/(t+b)^n, t en minutes ---
+function calcIDF(){
+  const a=num('i-a'), m=num('i-m'), b=num('i-b'), n=num('i-n'),
+        t=num('i-t'), T=num('i-periode');
+  if([a,m,b,n,t,T].some(v=>v===null)||a<=0||t<=0||T<=0){ showError('i-error'); return; }
+  const i=a*Math.pow(T,m)/Math.pow(t+b,n);
+  document.getElementById('i-v').textContent=i.toFixed(1)+' mm/h';
+  document.getElementById('i-sub').textContent='Pluie de projet : '+(i*t/60).toFixed(1)+' mm en '+t+' min · T='+T+' ans';
+  showResult('i-result');
+}
+
+// --- 5. Volume ruisselé : V(m³) = R(mm)·A(ha)·10 ---
+function calcVolume(){
+  const R=num('v-lame'), A=num('v-aire');
+  if(R===null||A===null||R<0||A<=0){ showError('v-error'); return; }
+  const V=R*A*10;
+  document.getElementById('v-v').textContent=V.toLocaleString('fr-CA',{maximumFractionDigits:0})+' m³';
+  document.getElementById('v-sub').textContent='soit '+(V/1000).toFixed(1)+' milliers de m³ · R='+R+' mm, A='+A+' ha';
+  showResult('v-result');
+}
+
+// --- 6. Manning trapézoïdal ---
+function calcManning(){
+  const b=num('m-base'), z=num('m-fruit'), y=num('m-profond'),
+        n=num('m-n'), p=num('m-pente');
+  if([b,z,y,n,p].some(v=>v===null)||b<=0||y<=0||n<=0||p<=0||z<0){ showError('m-error'); return; }
+  const S=p/100;
+  const A=(b+z*y)*y, P=b+2*y*Math.sqrt(1+z*z), R=A/P;
+  const Q=(1/n)*A*Math.pow(R,2/3)*Math.sqrt(S), V=Q/A;
+  document.getElementById('m-q').textContent=Q.toFixed(3)+' m³/s';
+  document.getElementById('m-sub').textContent='Vitesse '+V.toFixed(2)+' m/s · section '+A.toFixed(2)+' m² · rayon hydraulique '+R.toFixed(2)+' m';
+  showResult('m-result');
+}
+
+// --- 7. Convertisseur ---
+const UNITS={
+  debit:{label:'Débit',base:'m³/s',u:{'m³/s':1,'L/s':1000,'cfs (ft³/s)':35.3147,'gpm (US)':15850.3}},
+  pluie:{label:'Pluie',base:'mm',u:{'mm':1,'cm':0.1,'m':0.001,'in (pouces)':1/25.4}},
+  surface:{label:'Surface',base:'ha',u:{'ha':1,'m²':10000,'km²':0.01,'acres':2.47105}}
+};
+function majUnites(){
+  const cat=document.getElementById('c-cat').value, u=UNITS[cat].u;
+  const f=document.getElementById('c-from'), t=document.getElementById('c-to');
+  f.innerHTML=''; t.innerHTML='';
+  Object.keys(u).forEach(k=>{ f.add(new Option(k,k)); t.add(new Option(k,k)); });
+  t.selectedIndex=1;
+}
+function calcConvert(){
+  const cat=document.getElementById('c-cat').value, u=UNITS[cat].u;
+  const v=num('c-val');
+  if(v===null){ showError('c-error'); return; }
+  const f=document.getElementById('c-from').value, t=document.getElementById('c-to').value;
+  const res=v/u[f]*u[t];
+  document.getElementById('c-r').textContent=v+' '+f+' = '+res.toPrecision(5)+' '+t;
+  showResult('c-result');
+}
+majUnites();
+</script>
+</body>
+</html>

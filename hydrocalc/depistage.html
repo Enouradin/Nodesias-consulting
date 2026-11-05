@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HydroCalc Pro — Dépistage du risque d'inondation et des eaux pluviales</title>
+<meta name="description" content="Outil de dépistage (screening) du risque d'inondation et de ruissellement pluvial pour petites municipalités et firmes : indice de risque, volume de ruissellement estimé et rapport automatique en langage clair.">
+<style>
+  :root{--navy:#0b2a4a;--teal:#0e7c8c;--cyan:#17b8ce;--bg:#f2f6f9;--card:#fff;--text:#1d2b36;--muted:#5d7285;--line:#dbe5ec;--green:#1e8e4f;--yellow:#d9a400;--orange:#e06c00;--red:#c0392b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+  header{background:var(--navy);color:#fff;padding:16px 20px}
+  .wrap{max-width:920px;margin:0 auto;padding:0 16px}
+  header .wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .logo{font-weight:800;font-size:1.3rem}.logo span{color:var(--cyan)}
+  .pro{background:var(--cyan);color:#04263b;font-weight:800;border-radius:6px;padding:1px 8px;font-size:.8rem;vertical-align:middle}
+  header a{color:#9fd8e8;margin-left:auto}
+  .hero{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff;padding:34px 0 26px}
+  .hero h1{margin:0 0 8px;font-size:1.7rem;line-height:1.3}
+  .hero p{margin:0;color:#e6f4f8;max-width:760px}
+  .warn{background:#fff7e6;border:1px solid #e8a33d;border-radius:10px;padding:12px 16px;margin:20px 0;font-size:.95rem}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:720px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+  label{display:block;font-weight:600;margin:12px 0 4px;font-size:.95rem}
+  label:first-child{margin-top:0}
+  input,select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-size:1rem;background:#fff}
+  .hint{color:var(--muted);font-size:.85rem;margin-top:2px}
+  button{background:var(--teal);color:#fff;border:0;border-radius:10px;padding:13px 22px;font-size:1.05rem;font-weight:700;cursor:pointer;width:100%;margin-top:6px}
+  button:hover{background:#0a6575}
+  .score{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .big{font-size:3rem;font-weight:800;line-height:1}
+  .badge{font-weight:800;color:#fff;border-radius:8px;padding:6px 14px;font-size:1.05rem}
+  .bar{height:14px;border-radius:7px;background:#e6edf2;overflow:hidden;margin:10px 0 4px}
+  .bar>div{height:100%;border-radius:7px}
+  table{width:100%;border-collapse:collapse;font-size:.95rem}
+  td,th{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left}
+  td:last-child{text-align:right;font-weight:600}
+  #rapport{white-space:pre-wrap;background:#fbfcfd;border:1px solid var(--line);border-radius:10px;padding:16px;font-size:.97rem}
+  .hidden{display:none}
+  .muted{color:var(--muted);font-size:.9rem}
+  footer{color:var(--muted);font-size:.88rem;padding:24px 0 40px}
+  @media print{header,.hero,.warn,#formCard,button{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="logo">Hydro<span>Calc</span> <span class="pro">PRO</span></div>
+    <a href="index.html">← Retour aux calculateurs</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>Dépistage du risque d'inondation &amp; des eaux pluviales</h1>
+    <p>Un premier tri rapide et structuré pour les petites municipalités et les firmes : indice de risque de 0 à 100, volume de ruissellement estimé par la méthode SCS-CN, et rapport automatique en langage clair — en quelques minutes, avant de décider si une étude complète s'impose.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="warn">⚠️ <strong>Outil de dépistage seulement.</strong> Les résultats sont des estimations indicatives fondées sur des méthodes de pré-dimensionnement (SCS-CN, facteurs de risque normalisés). Ils ne constituent ni une étude hydrologique, ni un avis d'ingénieur, et ne remplacent pas les cartes officielles de zones inondables ni une étude signée par un ingénieur membre de l'ordre de sa province.</div>
+
+  <div class="card" id="formCard">
+    <div class="grid">
+      <div>
+        <label for="projet">Nom du site ou du projet</label>
+        <input id="projet" type="text" placeholder="Ex. Lotissement Rivière-Claire, phase 2">
+        <label for="muni">Municipalité / région</label>
+        <input id="muni" type="text" placeholder="Ex. Petite municipalité, Ontario">
+        <label for="surface">Superficie du bassin versant ou du site (hectares)</label>
+        <input id="surface" type="number" min="0" step="any" placeholder="Ex. 25">
+        <label for="pente">Pente moyenne du terrain (%)</label>
+        <input id="pente" type="number" min="0" step="any" placeholder="Ex. 3">
+        <label for="pluie">Pluie de projet sur 24 h (mm)</label>
+        <input id="pluie" type="number" min="0" step="any" placeholder="Ex. 95">
+        <div class="hint">À titre indicatif : une pluie 24 h de récurrence 1:100 ans se situe souvent entre 90 et 130 mm dans le sud de l'Ontario — utilisez vos courbes IDF locales officielles.</div>
+      </div>
+      <div>
+        <label for="imper">Surface imperméable — urbain, toits, pavé (%)</label>
+        <input id="imper" type="number" min="0" max="100" step="any" placeholder="Ex. 35">
+        <label for="agri">Surface agricole (%)</label>
+        <input id="agri" type="number" min="0" max="100" step="any" placeholder="Ex. 40">
+        <label for="bois">Surface boisée / naturelle (%)</label>
+        <input id="bois" type="number" min="0" max="100" step="any" placeholder="Ex. 25">
+        <div class="hint">Le reste (100 % − total) est traité comme prairie/pâturage.</div>
+        <label for="sol">Type de sol dominant</label>
+        <select id="sol">
+          <option value="A">Sableux / gravier — très perméable (groupe A)</option>
+          <option value="B" selected>Limoneux — perméabilité moyenne (groupe B)</option>
+          <option value="C">Limon argileux — faible perméabilité (groupe C)</option>
+          <option value="D">Argile lourde / roc — très faible perméabilité (groupe D)</option>
+        </select>
+        <label for="proximite">Proximité d'un cours d'eau ou d'une zone inondable connue</label>
+        <select id="proximite">
+          <option value="30">Dans une zone inondable cartographiée</option>
+          <option value="22">À moins de 100 m d'un cours d'eau</option>
+          <option value="12">Entre 100 et 500 m d'un cours d'eau</option>
+          <option value="4">À plus de 500 m, aucun cours d'eau connu</option>
+        </select>
+        <label for="antecedents">Inondations déjà observées sur le site ou à proximité</label>
+        <select id="antecedents">
+          <option value="15">Oui, documentées</option>
+          <option value="8" selected>On ne sait pas</option>
+          <option value="0">Non, jamais à notre connaissance</option>
+        </select>
+        <label for="enjeux">Enjeux en aval du site</label>
+        <select id="enjeux">
+          <option value="15">Résidences ou infrastructure critique (école, hôpital, route majeure)</option>
+          <option value="9">Quelques bâtiments ou une route secondaire</option>
+          <option value="3" selected>Terres agricoles ou terrains vacants seulement</option>
+        </select>
+      </div>
+    </div>
+    <button onclick="analyser()">Analyser le risque</button>
+    <p class="muted">Aucune donnée n'est envoyée : tout le calcul se fait dans votre navigateur.</p>
+  </div>
+
+  <div class="card hidden" id="resultCard">
+    <h2 style="margin-top:0">Résultat du dépistage</h2>
+    <div class="score">
+      <div class="big" id="scoreNum">—</div>
+      <div>
+        <div class="badge" id="scoreBadge">—</div>
+        <div class="muted" id="scoreEchelle">Indice de risque composite, de 0 (très faible) à 100 (très élevé)</div>
+      </div>
+    </div>
+    <div class="bar"><div id="scoreBar" style="width:0%"></div></div>
+    <h3>Détail des facteurs</h3>
+    <table id="facteurs"></table>
+    <h3>Estimations hydrologiques (pré-dimensionnement)</h3>
+    <table id="hydro"></table>
+    <h3>Rapport automatique</h3>
+    <div id="rapport"></div>
+    <button onclick="window.print()" style="margin-top:14px">Imprimer / enregistrer le rapport (PDF)</button>
+  </div>
+
+  <footer>
+    HydroCalc Pro — module de dépistage v1 (prototype). Méthodes : numéro de courbe SCS-CN (USDA), indice composite de risque HydroCalc. Aucune donnée recueillie ni transmise. Pour une décision d'aménagement, une étude hydrologique et hydraulique complète demeure requise.
+  </footer>
+</div>
+
+<script>
+function cnParCouverture(sol){
+  // Numéros de courbe SCS-CN par couverture et groupe hydrologique de sol (conditions moyennes, AMC II)
+  return {
+    imper:{A:98,B:98,C:98,D:98},
+    agri:{A:72,B:81,C:88,D:91},
+    bois:{A:36,B:60,C:73,D:79},
+    prairie:{A:49,B:69,C:79,D:84}
+  }[sol];
+}
+function analyser(){
+  var A=parseFloat(document.getElementById('surface').value);
+  var P=parseFloat(document.getElementById('pluie').value);
+  var imper=parseFloat(document.getElementById('imper').value)||0;
+  var agri=parseFloat(document.getElementById('agri').value)||0;
+  var bois=parseFloat(document.getElementById('bois').value)||0;
+  var sol=document.getElementById('sol').value;
+  var prox=parseInt(document.getElementById('proximite').value);
+  var ant=parseInt(document.getElementById('antecedents').value);
+  var enj=parseInt(document.getElementById('enjeux').value);
+  var projet=document.getElementById('projet').value.trim()||'Site sans nom';
+  var muni=document.getElementById('muni').value.trim()||'Municipalité non précisée';
+  if(!(A>0)||!(P>0)){alert('Veuillez saisir au minimum la superficie (ha) et la pluie de projet (mm).');return;}
+  var prairie=Math.max(0,100-imper-agri-bois);
+  var cI=98, cA=cnParCouverture('agri')[sol], cB=cnParCouverture('bois')[sol], cP=cnParCouverture('prairie')[sol];
+  var CN=(imper*cI+agri*cA+bois*cB+prairie*cP)/100;
+  var S=25400/CN-254;              // rétention potentielle (mm)
+  var Ia=0.2*S;                    // abstraction initiale (mm)
+  var Q=P>Ia? Math.pow(P-Ia,2)/(P-Ia+S) : 0;   // ruissellement (mm)
+  var volume=Q*A*10;               // m³  (1 mm sur 1 ha = 10 m³)
+  // Facteur ruissellement relatif au volume spécifique (0 à 25 pts)
+  var fRuiss=Math.min(25, Q/120*25);
+  // Facteur imperméabilisation (0 à 15 pts)
+  var fImper=imper/100*15;
+  // Pente : léger facteur aggravant si forte accumulation possible — écrêté à 0 pt ici, conservé informatif
+  var score=Math.round(prox+ant+enj+fRuiss+fImper);
+  score=Math.max(0,Math.min(100,score));
+  var niveau,couleur;
+  if(score<30){niveau='FAIBLE';couleur='var(--green)';}
+  else if(score<50){niveau='MODÉRÉ';couleur='var(--yellow)';}
+  else if(score<70){niveau='ÉLEVÉ';couleur='var(--orange)';}
+  else{niveau='TRÈS ÉLEVÉ';couleur='var(--red)';}
+  document.getElementById('scoreNum').textContent=score;
+  var badge=document.getElementById('scoreBadge');
+  badge.textContent='Risque '+niveau; badge.style.background=couleur;
+  var bar=document.getElementById('scoreBar');
+  bar.style.width=score+'%'; bar.style.background=couleur;
+  document.getElementById('facteurs').innerHTML=
+    '<tr><td>Proximité d\'un cours d\'eau / zone inondable</td><td>'+prox+' / 30</td></tr>'+
+    '<tr><td>Antécédents d\'inondation</td><td>'+ant+' / 15</td></tr>'+
+    '<tr><td>Enjeux en aval</td><td>'+enj+' / 15</td></tr>'+
+    '<tr><td>Ruissellement estimé (pluie de projet)</td><td>'+fRuiss.toFixed(1)+' / 25</td></tr>'+
+    '<tr><td>Imperméabilisation du site</td><td>'+fImper.toFixed(1)+' / 15</td></tr>'+
+    '<tr><td><strong>Indice composite</strong></td><td><strong>'+score+' / 100</strong></td></tr>';
+  document.getElementById('hydro').innerHTML=
+    '<tr><td>Numéro de courbe composite (CN)</td><td>'+CN.toFixed(0)+'</td></tr>'+
+    '<tr><td>Lame d\'eau ruisselée estimée</td><td>'+Q.toFixed(1)+' mm</td></tr>'+
+    '<tr><td>Volume de ruissellement estimé</td><td>'+Math.round(volume).toLocaleString('fr-CA')+' m³</td></tr>'+
+    '<tr><td>Superficie analysée</td><td>'+A+' ha</td></tr>'+
+    '<tr><td>Pluie de projet utilisée</td><td>'+P+' mm / 24 h</td></tr>';
+  var recos=[];
+  if(prox>=22) recos.push('vérifier immédiatement la cartographie officielle des zones inondables de l\'office de conservation / de la province et les marges de recul applicables');
+  if(score>=70) recos.push('commander une étude hydrologique et hydraulique complète signée par un ingénieur avant tout développement');
+  else if(score>=50) recos.push('prévoir une étude hydrologique détaillée et un plan de gestion des eaux pluviales (bassins de rétention, noues, surfaces perméables)');
+  else if(score>=30) recos.push('documenter le drainage du site et intégrer des mesures de contrôle à la source (rétention sur lot, toits verts lorsque possible)');
+  else recos.push('maintenir les bonnes pratiques de drainage et réévaluer si l\'occupation du sol change');
+  if(ant>=15) recos.push('tenir compte des inondations déjà documentées : relever les cotes atteintes et les intégrer à toute conception');
+  if(imper>=50) recos.push('l\'imperméabilisation est élevée : viser aucun rejet net supplémentaire vers l\'aval (contrôle quantité et qualité)');
+  var rapport='RAPPORT DE DÉPISTAGE — RISQUE D\'INONDATION ET EAUX PLUVIALES\n'+
+    'Projet / site : '+projet+'\nMunicipalité : '+muni+'\nDate : '+new Date().toLocaleDateString('fr-CA')+'\n\n'+
+    'INDICE DE RISQUE COMPOSITE : '+score+' / 100 — niveau '+niveau+'.\n\n'+
+    'Pour la pluie de projet de '+P+' mm sur 24 h, le ruissellement estimé atteint '+Q.toFixed(1)+' mm, soit environ '+Math.round(volume).toLocaleString('fr-CA')+' m³ sur les '+A+' hectares analysés (numéro de courbe composite : '+CN.toFixed(0)+').\n\n'+
+    'PROCHAINES ÉTAPES RECOMMANDÉES :\n- '+recos.join(' ;\n- ')+'.\n\n'+
+    'Limites : dépistage indicatif fondé sur des données saisies par l\'utilisateur et des méthodes de pré-dimensionnement. Ne remplace ni une étude hydrologique signée par un ingénieur, ni la cartographie officielle des zones inondables.';
+  document.getElementById('rapport').textContent=rapport;
+  var rc=document.getElementById('resultCard');
+  rc.classList.remove('hidden');
+  rc.scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
